@@ -12,11 +12,20 @@ import SingleProduct from "./pages/SingleProductPage";
 
 import { Route, Switch } from "react-router-dom";
 
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import SideCart from "./components/SideCart";
+import Footer from "./components/Footer";
+
 class App extends Component {
   render() {
     return (
       <>
+        {/* Los componentes que estan fuera del switch, se van a mostrar en todas las paginas  */}
         {/* Navbar, sidebar, cart, footer */}
+        <Navbar />
+        <SideCart />
+        <Sidebar />
 
         {/* Aqui es donde se realiza el manejo de las direcciones de las paginas. */}
         <Switch>
@@ -30,6 +39,8 @@ class App extends Component {
           {/* Si el usuario ingresa una pagina que no existte entonces se muestra la pgaina default */}
           <Route component={Default} />
         </Switch>
+
+        <Footer />
       </>
     );
   }
