@@ -8,10 +8,11 @@ const ProductContext = React.createContext();
 class ProductProvider extends Component {
   // Variables que se van a utilizar durante todo el proyecto
   state = {
-    sidebarOpen: true,
+    sidebarOpen: false,
     cartOpen: false,
     cartItems: 0,
-    links: linkData
+    links: linkData,
+    cart: []
   };
 
   //   Funciones que se van a utilizar durante el proyecto
