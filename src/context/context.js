@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 
+// Se hace el import de los links (Array) creados en el archivo linkData.js
+import { linkData } from "./linkData";
+
 const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
   // Variables que se van a utilizar durante todo el proyecto
   state = {
-    sidebarOpen: false,
+    sidebarOpen: true,
     cartOpen: false,
-    cartItems: 0
+    cartItems: 0,
+    links: linkData
   };
 
   //   Funciones que se van a utilizar durante el proyecto
