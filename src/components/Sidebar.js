@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+// Se hace import del link, que es parte del react router, se utiliza para redireccionar a las paginas
 import { Link } from "react-router-dom";
 
 // Se hace import del contexto creado
