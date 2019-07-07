@@ -6,7 +6,7 @@ import Title from "../Title";
 export default function Contact() {
   return (
     <section className="py-5">
-      <div className="row">
+      <div className="row m-0">
         <div className="col-10 mx-auto col-md-6 my-3">
           {/* Se manda a llamar el componente Title en donde se mandan las props title y center */}
           <Title title="Contact us" center />
