@@ -3,6 +3,9 @@ import React, { Component } from "react";
 // Se hace el import de los links (Array) creados en el archivo linkData.js
 import { linkData } from "./linkData";
 
+// Se hace el import de los iconos para las redes sociales
+import { socialData } from "./socialData";
+
 const ProductContext = React.createContext();
 
 class ProductProvider extends Component {
@@ -11,7 +14,10 @@ class ProductProvider extends Component {
     sidebarOpen: false,
     cartOpen: false,
     cartItems: 0,
+    // se guarda el array que para los links
     links: linkData,
+    // se guarda el array para los iconos de las redes sociales
+    socialIcons: socialData,
     cart: []
   };
 
