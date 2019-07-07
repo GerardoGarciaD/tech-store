@@ -7,7 +7,9 @@ export default function HomePage() {
     <>
       {/* Se mandan las props al componente Hero */}
       <Hero title="Awesome gadgets" max="true">
-        <Link to="/products">Our products</Link>
+        <Link className="main-link" style={{ margin: "2rem" }} to="/products">
+          Our products
+        </Link>
       </Hero>
     </>
   );
