@@ -39,6 +39,7 @@ const NavWrapper = styled.nav`
   padding: 1rem 1.5rem;
   background: var(--mainGray);
   border-bottom: 3px solid var(--primaryColor);
+  z-index: 1;
 
   /* Se pueden llamar clases que esten dentro del "styled componnent" */
   .nav-center {
