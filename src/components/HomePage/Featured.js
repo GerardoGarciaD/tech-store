@@ -3,7 +3,7 @@ import React from "react";
 // se importa el componente para obtener los productos
 import product from "../Product";
 // se importa el componente para poder hacer links para navegar entre las paginas
-import { link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // se importa el componente para crear titulos
 import Title from "../Title";
 
@@ -34,6 +34,13 @@ export default function Featured() {
               ));
             }}
           </ProductConsumer>
+        </div>
+        <div className="row mt-5">
+          <div className="col text-center">
+            <Link to="products" className="main-link">
+              our products
+            </Link>
+          </div>
         </div>
       </div>
     </section>
