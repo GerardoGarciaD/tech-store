@@ -35,7 +35,7 @@ class App extends Component {
           <Route path="/contact" component={Contact} />
           <Route path="/products" exact component={Products} />
           {/* En este componente tambien se va a pasar un id, esto para mostrar solo la informacion de un producto en especifico */}
-          <Route path="/product/:id" component={SingleProduct} />
+          <Route path="/products/:id" component={SingleProduct} />
           {/* Si el usuario ingresa una pagina que no existte entonces se muestra la pgaina default */}
           <Route component={Default} />
         </Switch>
