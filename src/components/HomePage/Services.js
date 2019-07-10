@@ -65,7 +65,7 @@ export default class Services extends Component {
 // se crea el styled component
 const ServicesWrapper = styled.section`
   background: rgba(95, 186, 234, 0.5);
-  /* Estas clases y elementos son los que se encuentran dentro del ServiceWrapper al momento de ser "Llamado" */
+  /* Estas clases y elementos son los que se encuentran dentro del ServiceWrapper al momento de ser "Llamado"ff */
   .service-icon {
     font-size: 2.5rem;
     color: var(--primaryColor);
