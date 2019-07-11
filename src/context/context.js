@@ -98,7 +98,12 @@ class ProductProvider extends Component {
 
   // obtener la informacion de un product de manera local
   getStorageProduct = () => {
-    return {};
+    // Se hace un operador ternario para verificar que exista en el objeto singleProduct en el localStorage
+    return localStorage.getItem("singleProduct")
+      ? // Si sí existe, entonces se regresa el json que contiene la informacion del producto
+        JSON.parse(localStorage.getItem("singleProduct"))
+      : {};
+    // si no, se regresa un objeto en blanco
   };
 
   // Metodo para obtener precio total
@@ -199,7 +204,15 @@ class ProductProvider extends Component {
 
   // set single product
   setSingleProduct = id => {
-    console.log(`single product ${id}`);
+    // Se busca el producto que contenga el id que recibe el metodo como parametro
+    let product = this.state.storeProducts.find(item => item.id === id);
+    // se crea un objeto en local storage para guardar el producto encontrado
+    localStorage.setItem("singleProduct", JSON.stringify(product));
+    // Se actualiza el estado con el prdocuto que se encontró
+    this.setState({
+      singleProduct: { ...product },
+      loadig: false
+    });
   };
 
   //   Funciones que se van a utilizar durante el proyecto
