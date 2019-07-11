@@ -73,7 +73,7 @@ class ProductProvider extends Component {
         // Aqui se manda a llamar una funcion para obtener la informacion desde localStorage
         cart: this.getStorageCart(),
         singleProduct: this.getStorageProduct(),
-        loadig: false
+        loading: false
       },
       () => {
         this.addTotals();
@@ -204,6 +204,8 @@ class ProductProvider extends Component {
 
   // set single product
   setSingleProduct = id => {
+    // console.log(id);
+
     // Se busca el producto que contenga el id que recibe el metodo como parametro
     let product = this.state.storeProducts.find(item => item.id === id);
     // se crea un objeto en local storage para guardar el producto encontrado
@@ -211,7 +213,7 @@ class ProductProvider extends Component {
     // Se actualiza el estado con el prdocuto que se encontró
     this.setState({
       singleProduct: { ...product },
-      loadig: false
+      loading: false
     });
   };
 
