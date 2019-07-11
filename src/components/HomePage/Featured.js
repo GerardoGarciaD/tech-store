@@ -1,7 +1,5 @@
 import React from "react";
 
-// se importa el componente para obtener los productos
-import product from "../Product";
 // se importa el componente para poder hacer links para navegar entre las paginas
 import { Link } from "react-router-dom";
 // se importa el componente para crear titulos
@@ -9,6 +7,7 @@ import Title from "../Title";
 
 // Se importa el contexto que contiene toda la informacion y los metodos
 import { ProductConsumer } from "../../context";
+// se importa el componente para obtener los productos
 import Product from "../Product";
 
 export default function Featured() {
@@ -19,7 +18,7 @@ export default function Featured() {
         <Title title="featured products" center="true" />
 
         {/* Productos */}
-        <div className="row">
+        <div className="row my-5">
           <ProductConsumer>
             {/* Funcion para obtener la informacion del context */}
 
