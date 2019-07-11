@@ -70,6 +70,7 @@ class ProductProvider extends Component {
         storeProducts,
         filteredProducts: storeProducts,
         featuredProducts,
+        // Aqui se manda a llamar una funcion para obtener la informacion desde localStorage
         cart: this.getStorageCart(),
         singleProduct: this.getStorageProduct(),
         loadig: false
@@ -82,7 +83,17 @@ class ProductProvider extends Component {
 
   // obtener la informacion del carrito de manera local
   getStorageCart = () => {
-    return [];
+    let cart;
+    // Se verifica si es que en verdad hay informacion en el "objeto" cart del localStorage
+    if (localStorage.getItem("cart")) {
+      // Si es asi, se regresa un JSON con toda la informacion del objeto
+      cart = JSON.parse(localStorage.getItem("cart"));
+    } else {
+      // Si no hay inofrmacion en localStorage, se regresa un array vacio
+      cart = [];
+    }
+
+    return cart;
   };
 
   // obtener la informacion de un product de manera local
@@ -132,8 +143,12 @@ class ProductProvider extends Component {
     });
   };
 
-  //
-  syncStorage = () => {};
+  //Con este metodo se guarda la informacion en el objeto llamado localStorage, esto para que no se pierda la informacion cuando  se añaden
+  // productos al carrito al momento de actualizar la pagina
+  syncStorage = () => {
+    // Se guarda toda la informacion de la variable cart del estado en el objeto localStorage
+    localStorage.setItem("cart", JSON.stringify(this.state.cart));
+  };
 
   // Metodo para añadir los productos al carrito
   addToCart = id => {
