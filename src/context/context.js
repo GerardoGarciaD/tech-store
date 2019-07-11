@@ -65,14 +65,19 @@ class ProductProvider extends Component {
 
     // se cambian los valores  que se encuentran en el estado
 
-    this.setState({
-      storeProducts,
-      filteredProducts: storeProducts,
-      featuredProducts,
-      cart: this.getStorageCart(),
-      singleProduct: this.getStorageProduct(),
-      loadig: false
-    });
+    this.setState(
+      {
+        storeProducts,
+        filteredProducts: storeProducts,
+        featuredProducts,
+        cart: this.getStorageCart(),
+        singleProduct: this.getStorageProduct(),
+        loadig: false
+      },
+      () => {
+        this.addTotals();
+      }
+    );
   };
 
   // obtener la informacion del carrito de manera local
@@ -85,19 +90,96 @@ class ProductProvider extends Component {
     return {};
   };
 
-  // Obtener el total de manera local
+  // Metodo para obtener precio total
+  getTotals = () => {
+    let subTotal = 0;
+    let cartItems = 0;
 
-  getTotals = () => {};
+    // Se recorre el numero de productos que esten en el carrito
+    this.state.cart.forEach(item => {
+      // Se obtiene el precio total por cada elemento del carrito
+      subTotal += item.total;
+      // Se obtiene el numero total de elementos en el carrito
+      cartItems += item.count;
+    });
+
+    // Se hacen la suma total y se añade el impuesto
+    subTotal = parseFloat(subTotal.toFixed(2));
+    let tax = subTotal * 0.2;
+    tax = parseFloat(tax.toFixed(2));
+    let total = subTotal + tax;
+    total = parseFloat(total.toFixed(2));
+
+    // Finatlmente se regresan estos cuatro valores
+    return {
+      cartItems,
+      subTotal,
+      tax,
+      total
+    };
+  };
 
   // add Totals
-  getTotals = () => {};
+  addTotals = () => {
+    // Se manda a llamar el metodo getTotals y se guardan los resultados del metodo en la variable totals
+    const totals = this.getTotals();
+    // Se actualiza el estado con los valores que se obtienen desde el otro metodo(getTotals)
+    this.setState({
+      cartItems: totals.cartItems,
+      cartSubTotal: totals.subTotal,
+      cartTax: totals.tax,
+      cartTotal: totals.total
+    });
+  };
 
-  // sincronizacion de los items
-  syncTotals = () => {};
+  //
+  syncStorage = () => {};
 
-  // añadir al carrito
+  // Metodo para añadir los productos al carrito
   addToCart = id => {
-    console.log(`add to cart ${id}`);
+    // Primero crea una variable y  se obtiene todos los productos que esten en el carrito (mediane spread operator)
+    let tempCart = [...this.state.cart];
+    // Despues se crea otra vairable se obtienen Todos los productos (mediane spread operator)
+    let tempProducts = [...this.state.storeProducts];
+
+    // Se crea una variable y se busca si es que en el carrito existe un producto con el id que recibe como parametro el metodo
+    let tempItem = tempCart.find(item => item.id === id);
+
+    // Si el producto no esta en el carrito (tempTtem == undefined)
+    if (!tempItem) {
+      // Se busca el producto que haga match con el id de todos los productos de la tienda y se guarda en la variable tempItem
+      tempItem = tempProducts.find(item => item.id === id);
+      // Se obtiene el precio de ese producto y se guarda en la variable total
+      let total = tempItem.price;
+      // Despues se guarda toda la informacion del producto, nombre, precio, etc. (con Spread operator) y tambien se agrega count y total
+      let cartItem = { ...tempItem, count: 1, total };
+      // Por ultimo se añade el cartItem que se acaba de crear a la ariable tempCart, con spreadOperator
+      tempCart = [...tempCart, cartItem];
+    }
+    // Si el producto ya esta en el carrito
+    else {
+      // Se suma la cantidad de productos que esten en el carrito
+      tempItem.count++;
+      // Se hace una multiplicacion con el total de veces que el producto esta en el carrito y el precio del producto
+      tempItem.total = tempItem.price * tempItem.count;
+      // por ultimo se hace una conversion a numero flotante con solo 2 decimas
+      tempItem.total = parseFloat(tempItem.total.toFixed(2));
+    }
+
+    // Por ultimo se actualiza el estado mediante una funncion
+    this.setState(
+      () => {
+        // Se guarda el valor de tempCart a la variable cart
+        return { cart: tempCart };
+      },
+      // Se hace una callback function , ya que this.setState se hace de forma asincrona
+      () => {
+        // En la call back function se mandan a llamar a estos 3 metodos
+        this.addTotals();
+        this.syncStorage();
+        this.openCart();
+      }
+    );
   };
 
   // set single product
