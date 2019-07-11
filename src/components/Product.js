@@ -10,7 +10,7 @@ import { FaSearch, FaCartPlus } from "react-icons/fa";
 // se importa el contexto
 import { ProductConsumer } from "../context";
 
-// Se recibe el parametro (la prop) que se manda desde el otro componente
+// Se recibe el parametro (la prop) que se manda desde el otro componente (Featured y Products)
 export default function Product({ product }) {
   return (
     <ProductConsumer>
@@ -20,7 +20,7 @@ export default function Product({ product }) {
 
         return (
           // Clases de bootstrap para hacer uso de las columnas
-          <ProductWrapper className="col-10 mx-auto col-sm-8 col-md-6 col-lg-3 my-3">
+          <ProductWrapper className="col-10 mx-auto col-sm-8 col-md-6 col-lg-4 my-3">
             {/* Se crea un "elemento" card de bootstrap que va a contener el todo el producto, imagen, titulo, precio, etc. */}
             <div className="card">
               <div className="image-container">
