@@ -30,7 +30,15 @@ class ProductProvider extends Component {
     filteredProducts: [],
     featuredProducts: [],
     singleProduct: {},
-    loading: true
+    loading: true,
+
+    // "Variables para filtrar productos"
+    search: "",
+    price: 0,
+    min: 0,
+    max: 0,
+    company: "all",
+    shipping: false
   };
 
   // Se crea un metodo, (componentDidMount), que este tipo de componentes se utilizan una vez que se haya terminado
@@ -65,6 +73,9 @@ class ProductProvider extends Component {
 
     // se cambian los valores  que se encuentran en el estado
 
+    // Obtener el precio mayor en tre los productos
+    let maxPrice = Math.max(...storeProducts.map(item => item.price));
+
     this.setState(
       {
         storeProducts,
@@ -73,7 +84,9 @@ class ProductProvider extends Component {
         // Aqui se manda a llamar una funcion para obtener la informacion desde localStorage
         cart: this.getStorageCart(),
         singleProduct: this.getStorageProduct(),
-        loading: false
+        loading: false,
+        price: maxPrice,
+        max: maxPrice
       },
       () => {
         this.addTotals();
@@ -348,6 +361,13 @@ class ProductProvider extends Component {
     );
   };
 
+  // Funciones para el filtrado de los productos
+  handleChange = event => {
+    console.log(event);
+  };
+
+  sortData = () => {};
+
   render() {
     return (
       <ProductContext.Provider
@@ -363,7 +383,8 @@ class ProductProvider extends Component {
           increment: this.increment,
           decrement: this.decrement,
           removeItem: this.removeItem,
-          clearCart: this.clearCart
+          clearCart: this.clearCart,
+          handleChange: this.handleChange
         }}
       >
         {/* Se pone esta linea de codigo para indicar que el contexto va a abarcar los hijos que esten dentro del context */}
