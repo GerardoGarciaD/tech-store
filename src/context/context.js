@@ -259,6 +259,7 @@ class ProductProvider extends Component {
     this.setState(
       () => {
         return {
+          // Se actualiza el valor del carrito con el nuevo valor del tempCart mediante spread operator
           cart: [...tempCart]
         };
       },
@@ -278,7 +279,23 @@ class ProductProvider extends Component {
 
   // remove of the cart item
   removeItem = id => {
-    console.log(id);
+    // Se obtiene toda la informacion del carrito del stado
+    let tempCart = [...this.state.cart];
+    // Se filtran los elementos que no sean el id para eliminar el elemento(producto) del carrito
+    tempCart = tempCart.filter(item => item.id !== id);
+
+    // Se actualiza el estado
+    this.setState(
+      {
+        // Se actualiza el valor del carrito con el nuevo valor del tempCart mediante spread operator
+        cart: [...tempCart]
+      },
+      // Se mandan a llamar los metodo para acutalizar los totales y el localStorage en una call back function
+      () => {
+        this.addTotals();
+        this.syncStorage();
+      }
+    );
   };
 
   clearCart = () => {
