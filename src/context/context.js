@@ -274,7 +274,42 @@ class ProductProvider extends Component {
 
   // decrement of the cart item
   decrement = id => {
-    console.log(id);
+    // Primero se obtiene toda la informacion que este en arrego cart del state
+    let tempCart = [...this.state.cart];
+    // Despues se busca el item que haga match con el id que obtiene del parametro del metodo con los datos del state
+    // y se guarda en la variable cartItem
+    const cartItem = tempCart.find(item => item.id === id);
+    // console.log(cartItem);
+
+    // se resta en 1 el numero de elementos que esten en el carrito
+    cartItem.count--;
+
+    // Si el numero de elementos en el carrito es 0, entonces se manda a llamar el metodo this.removeItem
+    if (cartItem.count === 0) {
+      this.removeItem(id);
+    } else {
+      // Despues se obtiene el total multiplicando el numero de elementos por el precio
+      cartItem.total = cartItem.count * cartItem.price;
+
+      // Se reduce el numero de decimales a 2
+      cartItem.total = parseFloat(cartItem.total.toFixed(2));
+
+      // Se actualiza el estado con la nueva informacion del cartItem
+      this.setState(
+        () => {
+          return {
+            // Se actualiza el valor del carrito con el nuevo valor del tempCart mediante spread operator
+            cart: [...tempCart]
+          };
+        },
+        /* Se mandan a llamar a los metodos para actualizar los totales y la informacion del local storage 
+      como callbackfunctions */
+        () => {
+          this.addTotals();
+          this.syncStorage();
+        }
+      );
+    }
   };
 
   // remove of the cart item
@@ -298,8 +333,19 @@ class ProductProvider extends Component {
     );
   };
 
+  // Vaciar el carrito
   clearCart = () => {
-    console.log("You cleared the cart");
+    this.setState(
+      {
+        // Se pone el array en blanco
+        cart: []
+      },
+      () => {
+        // Se mandan a llamar los metodo para acutalizar los totales y el localStorage en una call back function
+        this.addTotals();
+        this.syncStorage();
+      }
+    );
   };
 
   render() {
