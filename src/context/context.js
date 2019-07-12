@@ -235,6 +235,27 @@ class ProductProvider extends Component {
     this.setState({ cartOpen: true });
   };
 
+  /* Cart functionality */
+
+  // Increment of the cart item
+  increment = id => {
+    console.log(id);
+  };
+
+  // decrement of the cart item
+  decrement = id => {
+    console.log(id);
+  };
+
+  // remove of the cart item
+  removeItem = id => {
+    console.log(id);
+  };
+
+  clearCart = () => {
+    console.log("You cleared the cart");
+  };
+
   render() {
     return (
       <ProductContext.Provider
@@ -246,7 +267,11 @@ class ProductProvider extends Component {
           closeCart: this.closeCart,
           openCart: this.openCart,
           addToCart: this.addToCart,
-          setSingleProduct: this.setSingleProduct
+          setSingleProduct: this.setSingleProduct,
+          increment: this.increment,
+          decrement: this.decrement,
+          removeItem: this.removeItem,
+          clearCart: this.clearCart
         }}
       >
         {/* Se pone esta linea de codigo para indicar que el contexto va a abarcar los hijos que esten dentro del context */}
