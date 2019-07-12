@@ -239,7 +239,36 @@ class ProductProvider extends Component {
 
   // Increment of the cart item
   increment = id => {
-    console.log(id);
+    // Primero se obtiene toda la informacion que este en arrego cart del state
+    let tempCart = [...this.state.cart];
+    // Despues se busca el item que haga match con el id que obtiene del parametro del metodo con los datos del state
+    // y se guarda en la variable cartItem
+    const cartItem = tempCart.find(item => item.id === id);
+    // console.log(cartItem);
+
+    // se suma en 1 el numero de elementos que esten en el carrito
+    cartItem.count++;
+
+    // Despues se obtiene el total multiplicando el numero de elementos por el precio
+    cartItem.total = cartItem.count * cartItem.price;
+
+    // Se reduce el numero de decimales a 2
+    cartItem.total = parseFloat(cartItem.total.toFixed(2));
+
+    // Se actualiza el estado con la nueva informacion del cartItem
+    this.setState(
+      () => {
+        return {
+          cart: [...tempCart]
+        };
+      },
+      /* Se mandan a llamar a los metodos para actualizar los totales y la informacion del local storage 
+      como callbackfunctions */
+      () => {
+        this.addTotals();
+        this.syncStorage();
+      }
+    );
   };
 
   // decrement of the cart item
