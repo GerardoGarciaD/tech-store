@@ -11,7 +11,7 @@ export default function Info() {
     <section className="py-5">
       {/* Se utiliza la clase container para poder utilizar row y a su vez el sistema de columnas de bootstrap */}
       <div className="container">
-        Se crea la fila
+        {/* Se crea la fila */}
         <div className="row">
           {/* Se crean las columnas en donde en tamaños pequeños las columnas serán de 10 y centradas, y en tamaños medianos las columnas seran de 6 */}
           <div className="col-10 mx-auto col-md-6 my-3">
