@@ -382,7 +382,7 @@ class ProductProvider extends Component {
         // que se los inputs deben de tener el mismo nombre que las "variables" del estado
         [name]: value
       },
-      // Se manda a llamar a la funcion this.sortData
+      // Se manda a llamar a la funcion this.sortData en la callback function
       this.sortData
     );
 
@@ -390,7 +390,48 @@ class ProductProvider extends Component {
   };
 
   sortData = () => {
-    console.log("sorting data");
+    // Primero se obtienen todos los productoss y variables que se utilizan para filtrar productos
+    const { storeProducts, price, company, shipping, search } = this.state;
+
+    // se convierte a entero el valor price
+    let tempPrice = parseInt(price);
+
+    // Se guarda toda la informacion del array storeProducts en tempProducts con spread operator
+    let tempProducts = [...storeProducts];
+
+    // se empieza ocn el filtrado de los productos con la informacion que se cambio de las variables del estado en
+    // el metodo handleChange
+
+    // Filtrado por compañia
+    if (company !== "all") {
+      tempProducts = tempProducts.filter(item => item.company === company);
+    }
+
+    // Filtrado por precio
+    tempProducts = tempProducts.filter(item => item.price <= tempPrice);
+
+    // filtrado por envio
+    if (shipping === true) {
+      tempProducts = tempProducts.filter(item => item.freeShipping === true);
+    }
+
+    // verificacion por nombre
+    if (search.length > 0) {
+      tempProducts = tempProducts.filter(item => {
+        // primero se transofrma lo que busca el usuario en el input a minusculas
+        let tempSearch = search.toLowerCase();
+        // despues se verifica si el titulo del item hace match con la busqueda del usuario
+        let tempTittle = item.title.toLowerCase().slice(0, search.length);
+        // si la busqueda es exitosa se regresa el producto
+        if (tempSearch === tempTittle) {
+          return item;
+        }
+      });
+    }
+
+    this.setState({
+      filteredProducts: tempProducts
+    });
   };
 
   render() {
