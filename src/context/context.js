@@ -362,11 +362,36 @@ class ProductProvider extends Component {
   };
 
   // Funciones para el filtrado de los productos
+
+  // en esta funcion se recibe el evento (cuando se hace click en los inputs)
   handleChange = event => {
-    console.log(event);
+    // se obtiene el nombre del input al que se hizo click, se escribió informacion, etc
+    const name = event.target.name;
+    // Se obtiene el valor del input
+    const value =
+      // se verifica si el tipo de input es un checkbox
+      event.target.type === "checkbox"
+        ? event.target.checked
+        : // si no es un checkbox se obtiene su valor de forma "normal"
+          event.target.value;
+
+    // se cambian los valores que estan en el estado
+    this.setState(
+      {
+        // se actualiza la "variable" del estado con la variable que se obtiene del evento, es por eso
+        // que se los inputs deben de tener el mismo nombre que las "variables" del estado
+        [name]: value
+      },
+      // Se manda a llamar a la funcion this.sortData
+      this.sortData
+    );
+
+    console.log(`Name:  ${name} value: ${value}`);
   };
 
-  sortData = () => {};
+  sortData = () => {
+    console.log("sorting data");
+  };
 
   render() {
     return (
