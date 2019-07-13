@@ -18,6 +18,21 @@ export default function ProductFilter() {
           storeProducts
         } = value;
 
+        // Se crea la variable companies, que va a ser una estructura de datos de tipo Set(), en donde
+        // esta estructura solo acepta valores unicos
+        let companies = new Set();
+        // Primero se añade el valor de "all", que va a hacer el inicio del objeto
+        companies.add("all");
+        // Se hace un ciclo for en donde se crea una variable que va a contener un valor dentro del
+        // array storeProducts
+        for (let product in storeProducts) {
+          // Se añade al objeto companies el producto que haga match con el nombre de la propiedad "company"
+          companies.add(storeProducts[product]["company"]);
+        }
+
+        // se convierte el objeto o estructura de datos a array
+        companies = [...companies];
+
         return (
           <div className="row my-5">
             <div className="col-10 mx-auto">
@@ -46,8 +61,17 @@ export default function ProductFilter() {
                     value={company}
                     onChange={handleChange}
                   >
-                    <option value="all">all</option>
-                    <option value="fuji">fuji</option>
+                    {/* se recorre el array que contiene el nombre de las compañies (companies) */}
+                    {companies.map((company, index) => {
+                      return (
+                        <option key={index} value={company}>
+                          {company}
+                        </option>
+                      );
+                    })}
+
+                    {/* <option value="all">all</option>
+                    <option value="fuji">fuji</option> */}
                   </select>
                 </div>
                 {/* end of Company search */}
