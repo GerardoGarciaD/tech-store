@@ -1,8 +1,11 @@
 import React from "react";
 // Se importa el product consummer del contexto
 import { ProductConsumer } from "../../context";
+// se importa el componente para usar paypal
+import PayPalBtn from "./PayPalBtn";
 
-export default function CartTotals() {
+// Se obtiene la prop que se manda desde el componente Cart.js
+export default function CartTotals({ history }) {
   return (
     <div className="container">
       <div className="row">
@@ -25,6 +28,13 @@ export default function CartTotals() {
                 <h3>Subtotal: ${cartSubTotal}</h3>
                 <h3>Tax: ${cartTax}</h3>
                 <h3>Total: ${cartTotal}</h3>
+
+                {/* Se manda a llamar al componente de paypal y se pasan las siguientes propiedades */}
+                <PayPalBtn
+                  history={history}
+                  cartTotal={cartTotal}
+                  clearCart={clearCart}
+                />
               </div>
             );
           }}
