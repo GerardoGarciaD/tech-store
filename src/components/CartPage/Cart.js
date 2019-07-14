@@ -4,7 +4,8 @@ import CartColumns from "./CartColumns";
 import CartList from "./CartList";
 import CartTotals from "./CartTotals";
 
-export default function Cart() {
+// Se obtiene la prop que se manda desde el componente CartPage.js
+export default function Cart({ history }) {
   return (
     <section className="py-5">
       {/*  Title*/}
@@ -23,7 +24,7 @@ export default function Cart() {
 
       {/* Componente que muestra los totales del carrito */}
       {/* Cart totals */}
-      <CartTotals />
+      <CartTotals history={history} />
     </section>
   );
 }
