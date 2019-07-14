@@ -6,8 +6,11 @@ import { linkData } from "./linkData";
 // Se hace el import de los iconos para las redes sociales
 import { socialData } from "./socialData";
 
-// Se importa la informacion de los items
-import { items } from "./productData";
+// Se importa la informacion de los items (de manera local)
+// import { items } from "./productData";
+
+// se importa el contentful
+import { client } from "./contenful";
 
 const ProductContext = React.createContext();
 
@@ -46,7 +49,18 @@ class ProductProvider extends Component {
 
   componentDidMount() {
     // Se manda a llamar el metodo en donde se manda como parametro todos los datos de los productos (items)
-    this.setProducts(items);
+    // this.setProducts(items);
+
+    // Se manda a llamar al cliente para poder obtener la informacion de contentful
+    client
+      // se obtienen las entradas de contenful pero solo del modelo deseado
+      .getEntries({
+        content_type: "techStoreProducts"
+      })
+
+      // se manda a llamar a la funcion this.setProducts con los items que se obtienen de la respuesta
+      .then(response => this.setProducts(response.items))
+      .catch(console.error);
   }
 
   // Se crea un metodo para obtener los campos del array que contiene toda la informacion de los productos
